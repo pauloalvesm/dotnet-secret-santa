@@ -34,7 +34,7 @@ public static class Utility
         return Regex.IsMatch(emailFormat, providedEmail);
     }
 
-    public static void SortFriendByName(List<Friend> friends) 
+    public static void SortFriendsByName(List<Friend> friends) 
     {
         friends.Sort((friend1, friend2) => friend1.Name.CompareTo(friend2.Name));
     }
