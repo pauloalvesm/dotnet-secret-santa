@@ -1,4 +1,5 @@
 ﻿using SecretSanta.App.Models;
+using System.Net.Mail;
 using System.Text.RegularExpressions;
 
 namespace SecretSanta.App.Utils;
@@ -21,20 +22,26 @@ public static class Utility
 
         return true;
     }
-    
-    public static bool ValidateEmailFormat(string providedEmail) 
+
+    public static bool ValidateEmailFormat(string providedEmail)
     {
         if (string.IsNullOrWhiteSpace(providedEmail))
         {
             return false;
         }
 
-        var emailFormat = @"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$";
-        
-        return Regex.IsMatch(emailFormat, providedEmail);
+        try
+        {
+            var addr = new MailAddress(providedEmail.Trim());
+            return addr.Address == providedEmail.Trim();
+        }
+        catch
+        {
+            return false;
+        }
     }
 
-    public static void SortFriendByName(List<Friend> friends) 
+    public static void SortFriendsByName(List<Friend> friends) 
     {
         friends.Sort((friend1, friend2) => friend1.Name.CompareTo(friend2.Name));
     }
