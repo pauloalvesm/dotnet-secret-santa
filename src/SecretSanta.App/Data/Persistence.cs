@@ -3,7 +3,7 @@ using System.Reflection;
 
 namespace SecretSanta.App.Data;
 
-public class Persistence
+public class Persistence : IPersistence
 {
     private string friendsFilePath => Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "friends.csv");
     private string secretSantaFilePath => Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "secretsanta.csv");
