@@ -6,6 +6,10 @@ namespace SecretSanta.App.Utils;
 
 public static class Utility
 {
+    private static readonly Regex EmailRegex = new Regex(
+        @"^[^@\s]+@[^@\s]+\.[^@\s]+$",
+        RegexOptions.Compiled | RegexOptions.IgnoreCase);
+
     public static bool ValidateName(string providedName) 
     {
         if (string.IsNullOrWhiteSpace(providedName)) 
@@ -30,10 +34,22 @@ public static class Utility
             return false;
         }
 
+        string trimmedEmail = providedEmail.Trim();
+
+        if (trimmedEmail.Contains(".."))
+        {
+            return false;
+        }
+
+        if (!EmailRegex.IsMatch(trimmedEmail))
+        {
+            return false;
+        }
+
         try
         {
-            var addr = new MailAddress(providedEmail.Trim());
-            return addr.Address == providedEmail.Trim();
+            var addr = new MailAddress(trimmedEmail);
+            return addr.Address == trimmedEmail;
         }
         catch
         {
