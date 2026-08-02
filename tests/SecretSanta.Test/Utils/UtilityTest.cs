@@ -5,7 +5,7 @@ namespace SecretSanta.Test.Utils;
 
 public class UtilityTest
 {
-    [Theory]
+    [Theory(DisplayName = "ValidateName - When name has first name and last name should return true")]
     [InlineData("John Doe")]
     [InlineData("Alice Smith Junior")]
     [InlineData("Mary Jane Watson")]
@@ -18,7 +18,7 @@ public class UtilityTest
         Assert.True(result);
     }
 
-    [Theory]
+    [Theory(DisplayName = "ValidateName - When name is null empty or whitespace should return false")]
     [InlineData("")]
     [InlineData("   ")]
     [InlineData(null)]
@@ -31,7 +31,7 @@ public class UtilityTest
         Assert.False(result);
     }
 
-    [Theory]
+    [Theory(DisplayName = "ValidateName - When name does not contain space should return false")]
     [InlineData("John")]
     [InlineData("SingleWordName")]
     public void ValidateName_WhenNameDoesNotContainSpace_ShouldReturnFalse(string nameWithoutSpace)
@@ -43,7 +43,7 @@ public class UtilityTest
         Assert.False(result);
     }
 
-    [Theory]
+    [Theory(DisplayName = "ValidateEmailFormat - When email is valid should return true")]
     [InlineData("john.doe@gmail.com")]
     [InlineData("user.name+tag@domain.co.uk")]
     [InlineData("friend@company.org")]
@@ -56,7 +56,7 @@ public class UtilityTest
         Assert.True(result);
     }
 
-    [Theory]
+    [Theory(DisplayName = "ValidateEmailFormat - When email is null empty or whitespace should return false")]
     [InlineData("")]
     [InlineData("   ")]
     [InlineData(null)]
@@ -69,7 +69,7 @@ public class UtilityTest
         Assert.False(result);
     }
 
-    [Theory]
+    [Theory(DisplayName = "ValidateEmailFormat - When email is invalid format should return false")]
     [InlineData("plainaddress")]
     [InlineData("@missingusername.com")]
     [InlineData("username@.com")]
@@ -84,7 +84,7 @@ public class UtilityTest
         Assert.False(result);
     }
 
-    [Fact]
+    [Fact(DisplayName = "SortFriendsByName - When unsorted list provided should sort alphabetically by name")]
     public void SortFriendsByName_WhenUnsortedListProvided_ShouldSortAlphabeticallyByName()
     {
         // Arrange
@@ -105,7 +105,7 @@ public class UtilityTest
         Assert.Equal("Zack Fair", friends[2].Name);
     }
 
-    [Fact]
+    [Fact(DisplayName = "SortFriendsByName - When list is empty should not throw exception")]
     public void SortFriendsByName_WhenListIsEmpty_ShouldNotThrowException()
     {
         // Arrange

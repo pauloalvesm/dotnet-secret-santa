@@ -14,7 +14,7 @@ public class SecretSantaServiceTest
         _persistenceMock = new Mock<IPersistence>();
     }
 
-    [Fact]
+    [Fact(DisplayName = "AddFriend - Should add friend to list and sort alphabetically by name")]
     public void AddFriend_ShouldAddFriendToListAndSortByName()
     {
         // Arrange
@@ -35,7 +35,7 @@ public class SecretSantaServiceTest
         Assert.Equal("Zack Fair", initialList[1].Name);
     }
 
-    [Fact]
+    [Fact(DisplayName = "ListFriends - Should call ReadFriendsFromFile and return friends list")]
     public void ListFriends_ShouldCallReadFriendsFromFileAndReturnList()
     {
         // Arrange
@@ -58,7 +58,7 @@ public class SecretSantaServiceTest
         _persistenceMock.Verify(p => p.ReadFriendsFromFile(), Times.Once);
     }
 
-    [Fact]
+    [Fact(DisplayName = "GenerateSecretSanta - When less than two friends should return empty list and not save")]
     public void GenerateSecretSanta_WhenLessThanTwoFriends_ShouldReturnEmptyListAndNotSave()
     {
         // Arrange
@@ -77,7 +77,7 @@ public class SecretSantaServiceTest
         _persistenceMock.Verify(p => p.SaveSecretSantaPairs(It.IsAny<List<Tuple<Friend, Friend>>>()), Times.Never);
     }
 
-    [Fact]
+    [Fact(DisplayName = "GenerateSecretSanta - When list is empty should return empty list and not save")]
     public void GenerateSecretSanta_WhenListIsEmpty_ShouldReturnEmptyListAndNotSave()
     {
         // Arrange
@@ -93,7 +93,7 @@ public class SecretSantaServiceTest
         _persistenceMock.Verify(p => p.SaveSecretSantaPairs(It.IsAny<List<Tuple<Friend, Friend>>>()), Times.Never);
     }
 
-    [Theory]
+    [Theory(DisplayName = "GenerateSecretSanta - When even number of friends should generate pairs and save to persistence")]
     [InlineData(2)]
     [InlineData(4)]
     [InlineData(6)]

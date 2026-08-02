@@ -26,20 +26,7 @@ public class PersistenceTest : IDisposable
         CleanUpFiles();
     }
 
-    private void CleanUpFiles()
-    {
-        if (File.Exists(_friendsFilePath))
-        {
-            File.Delete(_friendsFilePath);
-        }
-
-        if (File.Exists(_secretSantaFilePath))
-        {
-            File.Delete(_secretSantaFilePath);
-        }
-    }
-
-    [Fact]
+    [Fact(DisplayName = "ReadFriendsFromFile - When file does not exist should return empty list")]
     public void ReadFriendsFromFile_WhenFileDoesNotExist_ShouldReturnEmptyList()
     {
         // Act
@@ -50,7 +37,7 @@ public class PersistenceTest : IDisposable
         Assert.Empty(result);
     }
 
-    [Fact]
+    [Fact(DisplayName = "ReadFriendsFromFile - When file is empty should return empty list")]
     public void ReadFriendsFromFile_WhenFileIsEmpty_ShouldReturnEmptyList()
     {
         // Arrange
@@ -64,7 +51,7 @@ public class PersistenceTest : IDisposable
         Assert.Empty(result);
     }
 
-    [Fact]
+    [Fact(DisplayName = "ReadFriendsFromFile - When file has valid data should return friends list")]
     public void ReadFriendsFromFile_WhenFileHasValidData_ShouldReturnFriendsList()
     {
         // Arrange
@@ -83,7 +70,7 @@ public class PersistenceTest : IDisposable
         Assert.Equal("jane@gmail.com", result[1].Email);
     }
 
-    [Fact]
+    [Fact(DisplayName = "SaveFriendsToFile - When list has friends should write correctly to file")]
     public void SaveFriendsToFile_WhenListHasFriends_ShouldWriteCorrectlyToFile()
     {
         // Arrange
@@ -104,7 +91,7 @@ public class PersistenceTest : IDisposable
         Assert.Equal("Bob Builder;bob@gmail.com", lines[1]);
     }
 
-    [Fact]
+    [Fact(DisplayName = "SaveFriendsToFile - When list is empty should create empty file")]
     public void SaveFriendsToFile_WhenListIsEmpty_ShouldCreateEmptyFile()
     {
         // Arrange
@@ -119,7 +106,7 @@ public class PersistenceTest : IDisposable
         Assert.Empty(lines);
     }
 
-    [Fact]
+    [Fact(DisplayName = "ReadSecretSantaPairs - When file does not exist should return empty list")]
     public void ReadSecretSantaPairs_WhenFileDoesNotExist_ShouldReturnEmptyList()
     {
         // Act
@@ -130,7 +117,7 @@ public class PersistenceTest : IDisposable
         Assert.Empty(result);
     }
 
-    [Fact]
+    [Fact(DisplayName = "ReadSecretSantaPairs - When file has sufficient data should return pairs list")]
     public void ReadSecretSantaPairs_WhenFileHasSufficientData_ShouldReturnPairsList()
     {
         // Arrange
@@ -149,7 +136,7 @@ public class PersistenceTest : IDisposable
         Assert.Equal("jane@gmail.com", result[0].Item2.Email);
     }
 
-    [Fact]
+    [Fact(DisplayName = "ReadSecretSantaPairs - When file has insufficient data should ignore invalid line and return valid pairs")]
     public void ReadSecretSantaPairs_WhenFileHasInsufficientData_ShouldIgnoreInvalidLineAndReturnValidPairs()
     {
         // Arrange
@@ -166,7 +153,7 @@ public class PersistenceTest : IDisposable
         Assert.Equal("Bob", result[0].Item2.Name);
     }
 
-    [Fact]
+    [Fact(DisplayName = "SaveSecretSantaPairs - When pairs exist should write correctly to file")]
     public void SaveSecretSantaPairs_WhenPairsExist_ShouldWriteCorrectlyToFile()
     {
         // Arrange
@@ -188,7 +175,7 @@ public class PersistenceTest : IDisposable
         Assert.Equal("John Doe;john@gmail.com;Jane Doe;jane@gmail.com", lines[0]);
     }
 
-    [Fact]
+    [Fact(DisplayName = "ClearFileContents - When files exist with content should truncate both files")]
     public void ClearFileContents_WhenFilesExistWithContent_ShouldTruncateBothFiles()
     {
         // Arrange
@@ -205,11 +192,24 @@ public class PersistenceTest : IDisposable
         Assert.Equal(string.Empty, File.ReadAllText(_secretSantaFilePath));
     }
 
-    [Fact]
+    [Fact(DisplayName = "ClearFileContents - When files do not exist should not throw exception")]
     public void ClearFileContents_WhenFilesDoNotExist_ShouldNotThrowException()
     {
         // Act & Assert
         var exception = Record.Exception(() => _persistence.ClearFileContents());
         Assert.Null(exception);
+    }
+
+    private void CleanUpFiles()
+    {
+        if (File.Exists(_friendsFilePath))
+        {
+            File.Delete(_friendsFilePath);
+        }
+
+        if (File.Exists(_secretSantaFilePath))
+        {
+            File.Delete(_secretSantaFilePath);
+        }
     }
 }
