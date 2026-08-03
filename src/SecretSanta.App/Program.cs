@@ -7,10 +7,10 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-        Persistence persistence = new Persistence();
+        IPersistence persistence = new Persistence();
         List<Friend> friends = persistence.ReadFriendsFromFile();
 
-        SecretSantaService secretSantaService = new SecretSantaService(friends);
+        SecretSantaService secretSantaService = new SecretSantaService(friends, persistence);
 
         bool exit = false;
         while (!exit)

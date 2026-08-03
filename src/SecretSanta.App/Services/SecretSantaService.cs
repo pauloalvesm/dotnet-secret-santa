@@ -7,11 +7,16 @@ namespace SecretSanta.App.Services;
 public class SecretSantaService
 {
     private List<Friend> friendsList;
-    Persistence persistence = new Persistence();
+    private readonly IPersistence persistence;
 
-    public SecretSantaService(List<Friend> friends)
+    public SecretSantaService(List<Friend> friends, IPersistence persistence)
     {
         friendsList = friends;
+        this.persistence = persistence;
+    }
+
+    public SecretSantaService(List<Friend> friends) : this(friends, new Persistence())
+    {
     }
 
     public void AddFriend(Friend friend)
