@@ -7,7 +7,7 @@
 
 ## 💻 Project
 
-Repository with a console application to manage a Secret Santa list.
+A repository for academic purposes that includes a console application for managing a Secret Santa list.
 
 ## 🚀 Technologies and Tools
 
@@ -23,6 +23,15 @@ This project was developed using the following technologies:
 ```bash
 # Clone the repository
 git clone https://github.com/pauloalvesm/dotnet-secret-santa.git
+
+# Navigate to the project folder
+cd dotnet-secret-santa
+
+# Restore dependencies
+dotnet restore
+
+# Run the project
+dotnet run
 ```
 ## 👤 Author
 
